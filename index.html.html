@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic Enough: Mini Zine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #2d2d2d;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .zine-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-controls h1 {
+            color: #fff;
+            font-size: 24px;
+            flex-grow: 1;
+        }
+
+        .page-counter {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .nav-button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .page {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 60px;
+            min-height: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.6s ease-in;
+            position: relative;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page h2 {
+            color: #ff6b6b;
+            font-size: 42px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .page h3 {
+            color: #ff6b6b;
+            font-size: 24px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .page p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .page ul, .page ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .page li {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        /* Cover Page */
+        .page-cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .page-cover h2 {
+            color: white;
+            font-size: 72px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-cover p {
+            color: #f0f0f0;
+            font-size: 22px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .emphasis {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .term {
+            font-style: italic;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .platform-trio {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .platform {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .platform h4 {
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .platform-caption {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .platform-vibe {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .quote-block {
+            border-left: 4px solid #ff6b6b;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #666;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .section-subtitle {
+            color: #667eea;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding: 40px 30px;
+                min-height: auto;
+            }
+
+            .page h2 {
+                font-size: 32px;
+            }
+
+            .page p {
+                font-size: 16px;
+            }
+
+            .platform-trio {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-controls {
+                flex-direction: column;
+            }
+
+            .nav-controls h1 {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="zine-container">
+        <div class="nav-controls">
+            <h1>📱 Authentic Enough</h1>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <span class="page-counter"><span id="current-page">1</span> / <span id="total-pages">10</span></span>
+                <button class="nav-button" id="prev-btn" onclick="previousPage()">← Back</button>
+                <button class="nav-button" id="next-btn" onclick="nextPage()">Next →</button>
+            </div>
+        </div>
+
+        <!-- Page 1: Cover -->
+        <div class="page page-cover active">
+            <h2>Authentic Enough</h2>
+            <p>Exploring how we perform ourselves online, and how platforms quietly shape the versions of ourselves we think are &ldquo;real.&rdquo;</p>
+        </div>
+
+        <!-- Page 2: The Scroll -->
+        <div class="page">
+            <h2>The Scroll</h2>
+            <p>I wake up and instinctively scroll Instagram.</p>
+            <p>Half asleep, I peek at other people&rsquo;s breakfasts, selfies, and tiny life updates.</p>
+            <p>Each post seems effortless, yet someone, somewhere, curated it carefully.</p>
+            <p class="emphasis">Even the &ldquo;natural&rdquo; photos are a performance.</p>
+        </div>
+
+        <!-- Page 3: The Performance -->
+        <div class="page">
+            <h2>The Performance</h2>
+            <p>We all perform. Even when we don&rsquo;t think we are.</p>
+            <p>Posting &ldquo;in the moment&rdquo; doesn&rsquo;t guarantee authenticity.</p>
+            <p>Every post is framed, filtered, and timed.</p>
+            <div class="quote-block">
+                <p><span class="term">Calculated Authenticity</span> — showing what you want to be seen as, rather than the full, messy reality.</p>
+            </div>
+        </div>
+
+        <!-- Page 4: Platform Shapes the Self -->
+        <div class="page">
+            <h2>Platform Shapes the Self</h2>
+            <p class="section-subtitle">Same Selfie, Three Platforms</p>
+            <div class="platform-trio">
+                <div class="platform">
+                    <h4>Instagram</h4>
+                    <div class="platform-caption">Playful, aesthetic, filters on point</div>
+                    <div class="platform-vibe">✨ Curated Self</div>
+                </div>
+                <div class="platform">
+                    <h4>BeReal</h4>
+                    <div class="platform-caption">Spontaneous, messy, "real"</div>
+                    <div class="platform-vibe">📸 Spontaneous Self</div>
+                </div>
+                <div class="platform">
+                    <h4>LinkedIn</h4>
+                    <div class="platform-caption">Polished, professional, résumé-ready</div>
+                    <div class="platform-vibe">💼 Professional Self</div>
+                </div>
+            </div>
+            <div class="quote-block">
+                <p><span class="term">Mediatization</span> — the idea that the medium shapes the message. Platforms don&rsquo;t just host our identities; they mold them.</p>
+            </div>
+        </div>
+
+        <!-- Page 5: Paratext Matters -->
+        <div class="page">
+            <h2>Paratext Matters</h2>
+            <p>Captions, hashtags, emojis — these are <span class="term">paratexts</span>.</p>
+            <p>They affect how your post is read, even if the image is the same.</p>
+            <h3>Example: A Latte Photo</h3>
+            <div class="platform-trio">
+                <div class="platform">
+                    <h4>Caption 1</h4>
+                    <div class="platform-caption">&ldquo;Study grind :/&rdquo;</div>
+                    <div class="platform-vibe">Slightly stressed student</div>
+                </div>
+                <div class="platform">
+                    <h4>Caption 2</h4>
+                    <div class="platform-caption">&ldquo;Needed this today!&rdquo;</div>
+                    <div class="platform-vibe">Self-care, positive</div>
+                </div>
+                <div class="platform">
+                    <h4>No Caption</h4>
+                    <div class="platform-caption">[Silent]</div>
+                    <div class="platform-vibe">Mysterious, open-ended</div>
+                </div>
+            </div>
+            <p style="margin-top: 30px;"><span class="emphasis">One image. Multiple selves.</span></p>
+        </div>
+
+        <!-- Page 6: Ritual Appreciation -->
+        <div class="page">
+            <h2>Ritual Appreciation</h2>
+            <p>Commenting &ldquo;stunning &lt;3&rdquo; on friends&rsquo; selfies isn&rsquo;t lying.</p>
+            <div class="quote-block">
+                <p><span class="term">Ritual Appreciation</span> — we hype each other up online, socially performing care.</p>
+            </div>
+            <p style="margin-top: 30px;">This isn&rsquo;t inauthentic. It&rsquo;s how we maintain our bonds in digital spaces. We signal affection through likes, comments, and emojis.</p>
+            <p>The performance of care <span class="emphasis">is</span> care.</p>
+        </div>
+
+        <!-- Page 7: The Silent Audience -->
+        <div class="page">
+            <h2>The Silent Audience</h2>
+            <p>Some people view my Stories without a word.</p>
+            <p>I notice. And I care, somehow.</p>
+            <div class="quote-block">
+                <p><span class="term">Peripherally Connected</span> — the small, indirect ways we maintain social bonds online.</p>
+            </div>
+            <p style="margin-top: 30px;">These viewers aren&rsquo;t close friends. They&rsquo;re part of our social orbit—watching, existing, staying loosely connected.</p>
+            <p>It&rsquo;s a new kind of relationship. Real, but at a distance.</p>
+        </div>
+
+        <!-- Page 8: The Break -->
+        <div class="page">
+            <h2>The Break</h2>
+            <p>Deleted Instagram for a week — a <span class="term">Digital Sabbatical</span>.</p>
+            <h3>Day 1-3</h3>
+            <p>Odd, loud, anxious. The phantom notifications. The urge to capture and share everything.</p>
+            <h3>Day 4-7</h3>
+            <p>Quiet brain space. Clarity. Real thoughts that aren&rsquo;t performed.</p>
+            <h3>Day 8</h3>
+            <p>Returning is inevitable. We live in an <span class="emphasis">Always-On world</span>.</p>
+            <p style="margin-top: 20px;">But something shifts. You realize how much mental real estate these platforms occupy.</p>
+        </div>
+
+        <!-- Page 9: Authentic Enough -->
+        <div class="page">
+            <h2>Authentic Enough</h2>
+            <p>Authenticity isn&rsquo;t about being completely transparent online.</p>
+            <p>It&rsquo;s about <span class="emphasis">choosing which version of yourself fits each context</span>.</p>
+            <div class="quote-block">
+                <p>Your online self can be real and performed at the same time — and that&rsquo;s okay.</p>
+            </div>
+            <p style="margin-top: 30px;">You can be:</p>
+            <ul>
+                <li>Playful on Instagram</li>
+                <li>Professional on LinkedIn</li>
+                <li>Raw on BeReal</li>
+                <li>Private in your drafts</li>
+            </ul>
+            <p style="margin-top: 20px;">All of these versions are you. None of them are lies.</p>
+            <p><span class="emphasis">That</span> is authentic enough.</p>
+        </div>
+
+        <!-- Page 10: References -->
+        <div class="page">
+            <h2>References</h2>
+            <p>This zine draws on concepts from:</p>
+            <ul>
+                <li><span class="term">Calculated Authenticity</span>, <span class="term">Paratext</span>, <span class="term">Mediatization</span> — *The Algorithmics*</li>
+                <li><span class="term">Ritual Appreciation</span> — *The Finstas*</li>
+                <li><span class="term">Peripherally Connected</span>, <span class="term">Digital Sabbatical</span> — *The Hashtag Hive*</li>
+            </ul>
+            <p style="margin-top: 40px; text-align: center; font-style: italic; color: #999;">
+                Created with thoughts on digital life, identity, and the performance of authenticity.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 10;
+
+        function showPage(pageNum) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            if (pageNum >= 1 && pageNum <= totalPages) {
+                pages[pageNum - 1].classList.add('active');
+                currentPage = pageNum;
+                document.getElementById('current-page').textContent = currentPage;
+                
+                document.getElementById('prev-btn').disabled = currentPage === 1;
+                document.getElementById('next-btn').disabled = currentPage === totalPages;
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') previousPage();
+        });
+
+        // Initialize
+        showPage(1);
+    </script>
+</body>
+</html>
